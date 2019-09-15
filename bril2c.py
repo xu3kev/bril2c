@@ -43,9 +43,13 @@ def br(instr):
             goto {};
 """.format(instr["args"][0], instr["args"][1], instr["args"][2])
 
+def jmp(instr):
+    return "goto {};".format(instr["args"][0])
+
+
 
 def bprint(instr):
-    return 'printf("%d", {});'.format(instr["args"][0])
+    return 'printf("%d\\n", {});'.format(instr["args"][0])
 
 def arith(instr):
     ops={"add":"+",
@@ -71,9 +75,16 @@ def compare(instr):
         variables.add(instr["dest"])
     return "{} = {} {} {};".format(instr["dest"], instr["args"][0], op, instr["args"][1])
 
+def nop(instr):
+    return ""
+
+def ret(instr):
+    return "return 0;"
+
 opcode = {
 "const":const,
 "br": br,
+"jmp":jmp,
 "print":bprint,
 "add":arith,
 "mul":arith,
@@ -83,7 +94,9 @@ opcode = {
 "lt":compare,
 "gt":compare,
 "le":compare,
-"ge":compare
+"ge":compare,
+"nop":nop,
+"ret":ret
 }
 
 def label(instr):
