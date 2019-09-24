@@ -4,7 +4,9 @@ import operator
 json_str = sys.stdin.read()
 obj = json.loads(json_str)
 def main_template(body):
-    template = """#include<stdio.h>
+    template = """#include <stdint.h>
+#include <stdio.h>
+#include <inttypes.h>
 int main(){{
 {}
 return 0;
@@ -49,7 +51,7 @@ def bid(instr):
 
 def bprint(instr):
     if variables[instr["args"][0]] == "int":
-        return 'printf("%d\\n", {});'.format(instr["args"][0])
+        return 'printf("%" PRId64 "\\n", {});'.format(instr["args"][0])
     if variables[instr["args"][0]] == "bool":
         return 'printf({}?"true\\n":"false\\n");'.format(instr["args"][0])
 
@@ -124,7 +126,8 @@ for i in instrs:
         code = label(i)
     body.append(code)
 
-declr = ["int {};".format(v) for v in variables.keys()]
+type_declr={"int":"int64_t", "bool":"int"};
+declr = ["{} {};".format(type_declr[v], k) for k,v in variables.items()]
     
 
 print(main_template("\n".join(declr+body)))
