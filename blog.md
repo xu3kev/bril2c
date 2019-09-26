@@ -15,25 +15,24 @@ Why choose C?
 ---
 Translating to C provides some benefits such as portability, good performance, and easier integration with other C library and tools. C language is a widely used language in many embedded device. We can also get native performance and leverage GCC compiler's optimization. I'm curious about its performance compared to other backends. By translating to C, we can easily integrate it with other C library. Plus, because the Bril instructions (as it is now) can be map to C statements, we can also potentially use gdb as an debugger.
 It would be also beneficial to people who are not familiar with assembly, LLVM IR or Java bytecode, but also want to get the native performance.
-Finally, Translating to C is very common in programming community and can be a fun project for many people.
+Finally, Translating to C is very common in programming community and can be a fun project!
 
 Implementation
 ---
-something
-
-Example
----
-something
+As now, Bril only have one main function. For the sake of simplicity, I first gather all the name of variables used in the Bril program, and declare them at the top of the generated C code with the corresponding type, where .
+Then, all the arithmetic, comparison and logic instructions can be directed translate to corresponding C statement. `br`branch
+Here we provide a toy example as how the program written in Bril is translated to C.
+A toy example here.
 
 Usage
 ---
-something
 
 Benchmark
 ---
-something
-
 
 Conclusion
 ---
-something
+
+Acknowledgement
+---
+I want to thank HongBo for the helpful discussion.
